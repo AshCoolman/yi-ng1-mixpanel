@@ -2,54 +2,42 @@
  * NOTE: Tried to bind this to document, but it didnt work, thus relying on global lexical scope.
 ###
 _evalScriptOnWindow = (script) =>
+    console.log "script", script
     eval script
 
-MixpanelProvider = ->
-    props =
-        mixpanel: null
-        identity: null
-        routeParamsChange: null
-        locationChange: null
+# Service constructor
+MixpanelService = ($routeParams, getMixpanel) ->
+    @track = (eventName, eventData) ->
+        debugger
+        console.log 'mixpanel.trackIt', getMixpanel(), eventName, eventData
+        getMixpanel().track eventName, eventData
+    @
 
-    _addScript = (key) =>
-        _evalScriptOnWindow key
+# Provider
+MixpanelProvider = =>
+    
+    getMixpanel = -> window['mixpanel'] # Must be evaluated as changes form (like google analytics)
+    identity = null
+    routeParamsChange = null
+    locationChange = null
+    configObj = null
 
     # Config
-    setConfig = (configObj) =>
-        
-        return null unless configObj?.isActive()
-        props.config = configObj
-        props.mixpanel = window.mixpanel
-        props.identity = props.config.identityFunc props.mixpanel
-        _addScript props.config.getScript()
+    @setConfig = (val) =>
+        return null unless val?.isActive()
+        configObj = val
+        _evalScriptOnWindow configObj.getScript()
+        identity          = configObj.identityFunc getMixpanel()
+        locationChange    = configObj.locationChange
+        routeParamsChange = configObj.routeParamsChange
 
-    # Methods shared between service and provider
-    methodsProps = {
-        props
-        setConfig
-        _addScript
-    }
-
-    # Service constructor
-    MixpanelService = ($routeParams) ->
-        @track = (eventName, eventData) =>
-            console.log 'mixpanel.track', mixpanel, eventName, eventData
-            mixpanel.track eventName, eventData
-        _.extend @, methodsProps
-        @
-
-
-    # Constructor
+    # Service creation
     @$get = ($rootScope, $routeParams, $location) =>
-        console.log '@$get props.isActive:', props
-        return track: -> console.log 'mixpanel analytics `isActive() == false`' unless props.config?.isActive()
-        getRouteParams = => $routeParams
-        getLocation = => $location
-        $rootScope.$watch getRouteParams, (newVal) => props.routeParamsChange props.mixpanel, newVal
-        $rootScope.$watch getLocation, (newVal) => props.locationChange props.mixpanel, newVal
-        new MixpanelService $routeParams
+        if not configObj?.isActive() then return track: -> console.warn 'mixpanel analytics inactive'
+        $rootScope.$watch (=> $routeParams), (newVal) => routeParamsChange getMixpanel(), newVal
+        $rootScope.$watch (=> $location),    (newVal) => locationChange getMixpanel(), newVal
+        new MixpanelService $routeParams, getMixpanel
 
-    _.extend @, methodsProps
     @
 
 angular
