@@ -1,0 +1,21 @@
+{
+  "name": "yi-ng-mixpanel",
+  "version": "1.0.0",
+  "authors": [
+    "Ashley Coleman <ashley@yieldify.com>"
+  ],
+  "description": "An angular 1.x wrapper for mixpanel",
+  "main": "dist/yi-ng-mixpanel.min.js",
+  "keywords": [
+    "angular",
+    "mixpanel"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
