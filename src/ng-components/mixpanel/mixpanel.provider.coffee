@@ -21,7 +21,7 @@ MixpanelProvider = ->
         props.config = configObj
         props.mixpanel = window.mixpanel
         props.identity = props.config.identityFunc props.mixpanel
-        _addScript props.config.script
+        _addScript props.config.getScript()
 
     # Methods shared between service and provider
     methodsProps = {
