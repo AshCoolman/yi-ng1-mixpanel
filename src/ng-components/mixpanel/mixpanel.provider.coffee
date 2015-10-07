@@ -51,7 +51,7 @@ MixpanelProvider = ->
 
     _.extend @, methodsProps
     @
-tes=123
+
 angular
     .module 'yi.mixpanel'
     .provider 'Mixpanel', MixpanelProvider
