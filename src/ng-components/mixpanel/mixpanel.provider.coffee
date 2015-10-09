@@ -8,7 +8,6 @@ _evalScriptOnWindow = (script) =>
 # Service constructor
 MixpanelService = ($routeParams, getMixpanel) ->
     @track = (eventName, eventData) ->
-        debugger
         console.log 'mixpanel.trackIt', getMixpanel(), eventName, eventData
         getMixpanel().track eventName, eventData
     @
