@@ -1,6 +1,6 @@
 {
   "name": "yi-ng-mixpanel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Components to make working mixpanel easier",
   "main": "dist/yi-ng-mixpanel.min.js",
   "scripts": {
