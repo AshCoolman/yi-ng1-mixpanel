@@ -13,7 +13,7 @@ Angular 1.x components for mixpanel
 ## Usage
 
 export-report.template.html:
-```
+```html
     <h3> Awesome report </h3>
     <save-button mixpanel-track="{{['saved',  {'Is report ': true, 'Document name': 'Awesome report'}]}}"></save-button>
 
