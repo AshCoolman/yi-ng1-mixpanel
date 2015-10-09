@@ -1,9 +1,6 @@
 {
   "name": "yi-ng-mixpanel",
   "version": "1.0.4",
-  "scripts": {
-    "preinstall": "node ./node_modules/gulp/bin/gulp.js"
-  },
   "authors": [
     "Ashley Coleman <ashley@yieldify.com>"
   ],
