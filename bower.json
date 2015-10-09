@@ -1,6 +1,6 @@
 {
   "name": "yi-ng-mixpanel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "preinstall": "node ./node_modules/gulp/bin/gulp.js"
   },
